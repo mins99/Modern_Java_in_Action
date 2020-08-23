@@ -90,7 +90,7 @@
  // 필터링과 추출 사용
  List<String> dishNames = new ArrayList<>();
  for(Dish dish : menu) {
-    if(dish.getCalories() > 300) {
+    if(dish.getCalories() > 300)
         dishNames.add(dish.getName());
     }
  }
