@@ -1,31 +1,26 @@
 package Modern_Java_in_Action.chapter6;
 
 public class Transaction {
-	private final Trader trader;
-	private final int year;
-	private final int value;
-	
-	public Transaction(Trader trader, int year, int value) {
-		this.trader = trader;
-		this.year = year;
+
+	private final Currency currency;
+	private final double value;
+
+	public Transaction(Currency currency, double value) {
+		this.currency = currency;
 		this.value = value;
 	}
 
-	public Trader getTrader() {
-		return trader;
+	public Currency getCurrency() {
+		return currency;
 	}
 
-	public int getYear() {
-		return year;
-	}
-
-	public int getValue() {
+	public double getValue() {
 		return value;
 	}
 
 	@Override
 	public String toString() {
-		return "Transaction [trader=" + trader + ", year=" + year + ", value=" + value + "]";
+		return currency + " " + value;
 	}
-	
+
 }

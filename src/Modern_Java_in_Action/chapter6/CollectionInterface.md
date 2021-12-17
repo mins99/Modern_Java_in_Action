@@ -1,3 +1,22 @@
+#Chapter 6 스트림으로 데이터 수집
+### 이장의 내용
++ Collectors 클래스로 컬렉션을 만들고 사용하기
++ 하나의 값으로 데이터 스트림 리듀스하기
++ 특별한 리듀싱 요약 연산
++ 데이터 그룹화와 분할
++ 자신만의 커스텀 컬렉터 개발
+
+---
++ 스트림의 연산은 중간 연산과 최종 연산으로 구성
+  + 중간 연산 : 한 스트림을 다른 스트림으로 변환하는 연산. 여러 연산을 연결 가능. 스트림 파이프라인을 구성하며 스트림의 요소를 소비하지 않음
+    + filter, map
+  + 최종 연산 : 스트림의 요소를 소비해서 최종 결과를 도출(예 : 스트림의 가장 큰 값 반환)
+    + count, findFirst, forEach, reduce
+
++ [예제 - 통화별로 트랜잭션을 그룹화하기](https://github.com/MINS99/Modern_Java_in_Action/blob/master/src/Modern_Java_in_Action/chapter6/CollectorsPractice.java)
+
+## 6.1 컬렉터란 무엇인가
+
 ## 6.5 Collector 인터페이스
 + Collector 인터페이스는 리듀싱 연산을 어떻게 구현할지 제공하는 메서드 집합으로 구성
 ```
