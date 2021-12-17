@@ -3,6 +3,7 @@ package Modern_Java_in_Action.chapter6;
 import java.util.*;
 
 import static java.util.stream.Collectors.*;
+import static Modern_Java_in_Action.chapter6.Dish.menu;
 
 public class CollectorsPractice {
 	
@@ -25,6 +26,8 @@ public class CollectorsPractice {
     );
 	
 	public static void main(String[] args) {
+
+        /* 6.1을 시작하기 전에 */
 
         /*
         * 1. 통화별로 트랜잭션을 그룹화한 다음에 해당 통화로 일어난 모든 트랜잭션 합계를 계산하시오(Map<Currency, Integer>)
@@ -49,54 +52,6 @@ public class CollectorsPractice {
         Map<Currency, List<Transaction>> transactionsByCurrencies2 = transactions.stream().collect(groupingBy(Transaction::getCurrency));
         System.out.println(transactionsByCurrencies2);
 
-
-        List<Dish> menu = Arrays.asList(
-                new Dish("pork", false, 800, Dish.Type.MEAT),
-                new Dish("beef", false, 700, Dish.Type.MEAT),
-                new Dish("chicken", false, 400, Dish.Type.MEAT),
-                new Dish("french fries", true, 530, Dish.Type.OTHER),
-                new Dish("rice", true, 350, Dish.Type.OTHER),
-                new Dish("season fruit", true, 120, Dish.Type.OTHER),
-                new Dish("pizza", true, 550, Dish.Type.OTHER),
-                new Dish("prawns", false, 300, Dish.Type.FISH),
-                new Dish("salmon", false, 450, Dish.Type.FISH)
-        );
-        
-        Map<String, List<String>> dishTags = new HashMap<>();
-        dishTags.put("pork", Arrays.asList("greasy", "salty"));
-        dishTags.put("beef", Arrays.asList("salty", "roasted"));
-        dishTags.put("chicken", Arrays.asList("fried", "crisp"));
-        dishTags.put("french fries", Arrays.asList("greasy", "fried"));
-        dishTags.put("rice", Arrays.asList("light", "natural"));
-        dishTags.put("season fruit", Arrays.asList("fresh", "natural"));
-        dishTags.put("pizza", Arrays.asList("tasty", "salty"));
-        dishTags.put("prawns", Arrays.asList("tasty", "roasted"));
-        dishTags.put("salmon", Arrays.asList("delicious", "fresh"));
-        
-        // 트랜잭션의 리스트를 구하는 toList
-        List<Transaction> transactions2 = transactions.stream().collect(toList());
-        
-        // menu의 갯수를 구하는 counting
-        long howManyDishes = menu.stream().collect(counting());
-        long howManyDishes2 = menu.stream().count();
-        
-        // menu 중 칼로리가 가장 높은 요리를 구하는 maxBy(minBy)
-        Comparator<Dish> dishCaloriesComparator = Comparator.comparingInt(Dish::getCalories);
-        Optional<Dish> mostCalorieDish = menu.stream().collect(maxBy(dishCaloriesComparator));
-        
-        // menu의 총 칼로리를 계산
-        int totalCalories = menu.stream().collect(summingInt(Dish::getCalories));
-        
-        // menu의 평균 칼로리를 계산
-        double avgCalories = menu.stream().collect(averagingInt(Dish::getCalories));
-        
-        // menu의 갯수, 칼로리 합, 평균 등등
-        IntSummaryStatistics menuStatistics = menu.stream().collect(summarizingInt(Dish::getCalories));
-        
-        // 문자열 연결 joining
-        String shortMenu = menu.stream().map(Dish::getName).collect(joining(", "));
-        //String shortMenu2 = menu.stream().collect(joining());		//Dish에 name을 반환하는 toString 메서드가 있으면 map(Dish::getName) 생략 가능
-        
         
         /* 6.3 그룹화 */
         // 그룹화 Grouping
