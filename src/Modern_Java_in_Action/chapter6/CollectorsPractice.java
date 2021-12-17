@@ -32,7 +32,7 @@ public class CollectorsPractice {
         * 3. 트랜잭션을 도시 등 다수준으로 그룹화하시오. 그리고 각 트랜잭션이 비싼지 저렴한지 구분하시오(Map<String, Map<Boolean, List<Transaction>>)
         * */
 
-        // p.198 예제 6-1 통화별로 트랜잭션을 그룹화(명령형 버전)
+        // p.198 예제 6-1 통화별로 트랜잭션을 그룹화(명령형 프로그래밍 버전)
         Map<Currency, List<Transaction>> transactionsByCurrencies = new HashMap<>();
         for (Transaction transaction : transactions) {
             Currency currency = transaction.getCurrency();
@@ -45,7 +45,7 @@ public class CollectorsPractice {
         }
         System.out.println(transactionsByCurrencies);
 
-        // Stream
+        // Stream(함수형 프로그래밍 버전)
         Map<Currency, List<Transaction>> transactionsByCurrencies2 = transactions.stream().collect(groupingBy(Transaction::getCurrency));
         System.out.println(transactionsByCurrencies2);
 
