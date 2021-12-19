@@ -46,82 +46,14 @@ public class CollectorsPractice {
             }
             transactionsForCurrency.add(transaction);
         }
-        System.out.println(transactionsByCurrencies);
+        //System.out.println(transactionsByCurrencies);
 
         // Stream(함수형 프로그래밍 버전)
         Map<Currency, List<Transaction>> transactionsByCurrencies2 = transactions.stream().collect(groupingBy(Transaction::getCurrency));
-        System.out.println(transactionsByCurrencies2);
+        //System.out.println(transactionsByCurrencies2);
 
         
-        /* 6.3 그룹화 */
-        // 그룹화 Grouping
-        Map<Dish.Type, List<Dish>> dishesByType = menu.stream().collect(groupingBy(Dish::getType));
-        
-        // Grouping의 분류 함수로는 메서드 참조와 람다 표현식이 가능
-        Map<CaloricLevel, List<Dish>> dishesByCaloricLevel = menu.stream().collect(groupingBy(dish -> {
-        		if(dish.getCalories() <= 400) return CaloricLevel.DIET;
-        		else if(dish.getCalories() <= 700) return CaloricLevel.NORMAL;
-        		else return CaloricLevel.FAT;
-        }));
-        
-        // Grouping & filter
-        // 전자로 하면 조건에 해당하지 않는 분류가 나타나지 않는 문제가 발생
-        Map<Dish.Type, List<Dish>> caloricDishesByType = menu.stream().filter(dish -> dish.getCalories() > 500).collect(groupingBy(Dish::getType));
-        //Map<Dish.Type, List<Dish>> caloricDishesByType2 = menu.stream().collect(groupingBy(Dish::getType, filtering(dish -> dish.getCalories() > 500, toList())));
-        
-        // mapping으로 그룹의 각 요리를 관련 이름 목록으로 변환
-        Map<Dish.Type, List<String>> dishNamesByType = menu.stream().collect(groupingBy(Dish::getType, mapping(Dish::getName, toList())));
-        
-        // flatMapping로 요리의 태그를 추출
-        //Map<Dish.Type, Set<String>> dishNamesByType2 = menu.stream().collect(groupingBy(Dish::getType, flatmapping(dish -> dishTags.get(dish.getName()).stream(), toSet())));
-        
-        // 다수준 그룹화
-        Map<Dish.Type, Map<CaloricLevel, List<Dish>>> dishesByTypeCaloricLevel
-        = menu.stream().collect(groupingBy(Dish::getType, 
-        												groupingBy(dish -> {
-        													if(dish.getCalories() <= 400)
-        														return CaloricLevel.DIET;
-        													else if(dish.getCalories() <= 700)
-        														return CaloricLevel.NORMAL;
-        													else
-        														return CaloricLevel.FAT;
-        												})));
-        
-        // 서브그룹으로 데이터 수집
-        // 메뉴에서 요리의 수를 종류별로 계산
-        Map<Dish.Type, Long> typesCount = menu.stream().collect(groupingBy(Dish::getType, counting()));
-        
-        // 메뉴에서 가장 높은 칼로리를 가진 요리를 계산
-        Map<Dish.Type, Optional<Dish>> mostCaloricByType = menu.stream().collect(groupingBy(Dish::getType, maxBy(Comparator.comparingInt(Dish::getCalories))));
-        // Map의 값에 Optional 사용안하기
-        Map<Dish.Type, Dish> mostCaloricByType2 = menu.stream().collect(groupingBy(Dish::getType, 
-        																														collectingAndThen(maxBy(Comparator.comparingInt(Dish::getCalories)), Optional::get)));
-        
-        // groupingBy의 두 번째 인수로 전달할 컬렉터 사용
-        // 메뉴들의 칼로리 합
-        Map<Dish.Type, Integer> totalCaloriesByType = menu.stream().collect(groupingBy(Dish::getType, summingInt(Dish::getCalories)));
-        
-        // 요리 형식에 존재하는 모든 CaloricLevel값 계산
-        Map<Dish.Type, Set<CaloricLevel>> caloricLevelsByType = menu.stream().collect(groupingBy(Dish::getType, mapping(dish -> {
-																			        															if(dish.getCalories() <= 400)
-																			                														return CaloricLevel.DIET;
-																			                													else if(dish.getCalories() <= 700)
-																			                														return CaloricLevel.NORMAL;
-																			                													else
-																			                														return CaloricLevel.FAT;
-																			        														}, toSet())));
-        
-        //toCollection 으로 형식 정하기
-        Map<Dish.Type, Set<CaloricLevel>> caloricLevelsByType2 = menu.stream().collect(groupingBy(Dish::getType, mapping(dish -> {
-																																					if(dish.getCalories() <= 400)
-																																						return CaloricLevel.DIET;
-																																					else if(dish.getCalories() <= 700)
-																																						return CaloricLevel.NORMAL;
-																																					else
-																																						return CaloricLevel.FAT;
-																																				}, toCollection(HashSet::new))));
-        
-        
+
         /* 6.4 분할*/
         Map<Boolean, List<Dish>> partitionedMenu = menu.stream().collect(partitioningBy(Dish::isVegetarian)); 		// partitioningBy : 분할 함수
         List<Dish> vegetarianDishes = partitionedMenu.get(true);

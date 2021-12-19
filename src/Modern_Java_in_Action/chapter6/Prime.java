@@ -18,6 +18,6 @@ public class Prime {
 	
 	// isPrime 메서드를 프레디케이트로 이용하고 partitioningBy 컬렉터로 리듀스하여 숫자를 분류
 	public Map<Boolean, List<Integer>> partitionPrimes(int n) {
-		return IntStream.rangeClosed(2,  n).boxed().collect(partitioningBy(candidate -> isPrime(candidate)));
+		return IntStream.rangeClosed(2, n).boxed().collect(partitioningBy(candidate -> isPrime(candidate)));
 	}
 }
