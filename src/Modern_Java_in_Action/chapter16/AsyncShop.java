@@ -17,7 +17,7 @@ public class AsyncShop {
     }
 
     public Future<Double> getPriceAsync(String product) {
-        CompletableFuture<Double> futurePrice = new CompletableFuture<>();
+        /*CompletableFuture<Double> futurePrice = new CompletableFuture<>();
         new Thread(() -> {
             try {
                 double price = calculatePrice(product);
@@ -26,7 +26,9 @@ public class AsyncShop {
                 futurePrice.completeExceptionally(ex);
             }
         }).start();
-        return futurePrice;
+        return futurePrice;*/
+
+        return CompletableFuture.supplyAsync(() -> calculatePrice(product));
     }
 
     private double calculatePrice(String product) {
