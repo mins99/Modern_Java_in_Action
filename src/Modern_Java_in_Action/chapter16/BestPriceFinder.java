@@ -26,20 +26,26 @@ public class BestPriceFinder {
 
     public List<String> findPricesSequential(String product) {
         return shops.stream()
-                .map(shop -> String.format("%s price is %.2f", shop.getName(), shop.getPrice(product)))
+                .map(shop -> shop.getPrice(product))
+                .map(Quote::parse)
+                .map(Discount::applyDiscount)
                 .collect(Collectors.toList());
     }
 
     public List<String> findPricesParallel(String product) {
         return shops.parallelStream()
-                .map(shop -> String.format("%s price is %.2f", shop.getName(), shop.getPrice(product)))
+                .map(shop -> shop.getPrice(product))
+                .map(Quote::parse)
+                .map(Discount::applyDiscount)
                 .collect(Collectors.toList());
     }
 
     public List<String> findPricesFuture(String product) {
         List<CompletableFuture<String>> priceFutures =
                 shops.stream()
-                        .map(shop -> CompletableFuture.supplyAsync(() -> shop.getName() + " price is " + shop.getPrice(product), executor))
+                        .map(shop -> CompletableFuture.supplyAsync(() -> shop.getPrice(product), executor))
+                        .map(future -> future.thenApply(Quote::parse))
+                        .map(future -> future.thenCompose(quote -> CompletableFuture.supplyAsync(() -> Discount.applyDiscount(quote), executor)))
                         .collect(Collectors.toList());
 
         return priceFutures.stream()
