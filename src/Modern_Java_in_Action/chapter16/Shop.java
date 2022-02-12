@@ -15,10 +15,8 @@ public class Shop {
         random = new Random(name.charAt(0) * name.charAt(1) * name.charAt(2));
     }
 
-    public String getPrice(String product) {
-        double price = calculatePrice(product);
-        Discount.Code code = Discount.Code.values()[random.nextInt(Discount.Code.values().length)];
-        return name + ":" + price + ":" + code;
+    public double getPrice(String product) {
+        return calculatePrice(product);
     }
 
     public double calculatePrice(String product) {
