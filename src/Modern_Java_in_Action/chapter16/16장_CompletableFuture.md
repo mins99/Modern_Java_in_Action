@@ -230,7 +230,7 @@ public List<String> findPricesFuture(String product) {
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fedo32u%2Fbtrs9ir5tpN%2FDL9jYy8SrGFUdRpI1fMZok%2Fimg.png)
 
 #### 가격 정보 얻기
-+ supplyAsync에 닮다 표현식을 전달하여 비동기적으로 상점에서 정보를 조회 
++ supplyAsync에 람다 표현식을 전달하여 비동기적으로 상점에서 정보를 조회 
 + 첫 번째 변환의 반환 결과는 Stream<CompletableFuture\<String>>
 + 각 CompletableFuture는 작업이 끝났을 때 해당 상점에서 반환하는 문자열 정보 포함
 + 커스텀 executor 사용
