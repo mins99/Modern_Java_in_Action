@@ -2,6 +2,7 @@ package Modern_Java_in_Action.chapter16;
 
 import static Modern_Java_in_Action.chapter16.Util.delay;
 import static Modern_Java_in_Action.chapter16.Util.format;
+import static Modern_Java_in_Action.chapter16.Util.randomDelay;
 
 import java.util.Random;
 
@@ -26,7 +27,7 @@ public class Shop {
     }
 
     public double calculatePrice(String product) {
-        delay();
+        randomDelay();
         return format(random.nextDouble() * product.charAt(0) + product.charAt(1));
     }
 

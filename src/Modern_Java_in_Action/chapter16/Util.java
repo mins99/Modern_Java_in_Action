@@ -28,4 +28,13 @@ public class Util {
         }
     }
 
+    public static void randomDelay() {
+        int delay = 500 + RANDOM.nextInt(2000);
+        try {
+            Thread.sleep(delay);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

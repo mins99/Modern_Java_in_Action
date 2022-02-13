@@ -12,6 +12,8 @@ public class BestPriceFinderMain {
         execute("composed CompletableFuture", () -> bestPriceFinder.findPricesFuture("myPhone27S"));
 
         execute("combined USD CompletableFuture", () -> bestPriceFinder.findPricesInUSDCompletableFuture("myPhone27S"));
+
+        bestPriceFinder.printPricesStream("myPhone27S");
     }
 
     private static void execute(String msg, Supplier<List<String>> s) {
