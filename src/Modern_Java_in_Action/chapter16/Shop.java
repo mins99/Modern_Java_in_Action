@@ -21,6 +21,10 @@ public class Shop {
         return name + ":" + price + ":" + code;
     }
 
+    public double getPrice2(String product) {
+        return calculatePrice(product);
+    }
+
     public double calculatePrice(String product) {
         delay();
         return format(random.nextDouble() * product.charAt(0) + product.charAt(1));
